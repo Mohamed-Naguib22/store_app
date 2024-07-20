@@ -36,4 +36,26 @@ class Api {
 
     return response.data;
   }
+
+  Future<dynamic> put({
+    required String url,
+    required Map<String, dynamic> body,
+    @required String? token,
+  }) async {
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+    };
+
+    if (token != null) {
+      headers.addAll({'Authorization' : 'Bearer $token'});
+    }
+
+    var response = await dio.put(url, data: body, options: Options(headers: headers));
+
+    if (response.statusCode != 200) {
+      throw Exception('There is a problem with status code ${response.statusCode}');
+    }
+
+    return response.data;
+  }
 }

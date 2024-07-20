@@ -23,7 +23,13 @@ class ProductService {
   }
 
   Future<dynamic> addProduct({required Product product}) async {
-    var response = await Api(dio: Dio()).post(url: "https://fakestoreapi.com/products", body: product.toJson(), token: null);
+    var response = await Api(dio: Dio()).post(url: "$baseUrl$productRoute", body: product.toJson(), token: null);
+
+    return response;
+  }
+
+  Future<dynamic> updateProduct({required Product product, required int id}) async {
+    var response = await Api(dio: Dio()).put(url: "$baseUrl$productRoute/$id", body: product.toJson(), token: null);
 
     return response;
   }

@@ -30,8 +30,9 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           var rating = Rating(rate: 32, count: 21);
-          var product = Product(id: 21, title: "test", price: 13, category: "category", image: "image", description: "description", rating: rating);
-          var response = await ProductService().addProduct(product: product);
+          var product = Product(id: 21, title: "test", price: 13, category: "ss", image: "image", description: "description", rating: rating);
+          var response = await ProductService().updateProduct(product: product, id: 3);
+          print(response);
         },
       ),
       body: FutureBuilder<List<Product>>(
