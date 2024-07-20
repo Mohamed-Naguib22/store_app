@@ -8,7 +8,6 @@ class ProductService {
 
   Future<List<Product>> getAllProducts() async {
     var response = await dio.get("$baseUrl$productRoute");
-    print(response);
 
     List<dynamic> products = response.data;
     List<Product> productList = [];
@@ -16,6 +15,7 @@ class ProductService {
     for (var product in products) {
       productList.add(Product.fromJson(product));
     }
+
     print(productList);
     return productList;
   }

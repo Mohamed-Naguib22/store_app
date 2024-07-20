@@ -26,12 +26,12 @@ class ProductCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(product.title),
+                  Text(product.title.substring(0, 9)),
                   const SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(r"$" + product.price.toString()),
+                      Text('\$${product.price.toString()}', style: TextStyle(color: Colors.green),),
                       Icon(
                         Icons.favorite,
                         color: Colors.red,
@@ -44,9 +44,9 @@ class ProductCard extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: 100,
+          left: 70,
           bottom: 65,
-          child: Image.network(height: 80, product.image),
+          child: Image.network(height: 80, width: 80, product.image),
         ),
       ],
     );
