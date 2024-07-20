@@ -1,35 +1,30 @@
 import 'package:dio/dio.dart';
+import 'package:store_app/helper/api.dart';
 import 'package:store_app/models/product.dart';
 import 'package:store_app/utils/constants.dart';
 
 class ProductService {
-  final Dio dio;
-  ProductService(this.dio);
+  ProductService();
 
   Future<List<Product>> getAllProducts() async {
-    var response = await dio.get("$baseUrl$productRoute");
+    List<dynamic> products = await Api(dio: Dio()).get(url: "$baseUrl$productRoute");
 
-    List<dynamic> products = response.data;
-    List<Product> productList = [];
-
-    for (var product in products) {
-      productList.add(Product.fromJson(product));
-    }
-
-    print(productList);
-    return productList;
+    return products.map((product) => Product.fromJson(product)).toList();
   }
 
   Future<List<dynamic>> getAllCategories() async {
-    var response = await dio.get("$baseUrl$productRoute/categories");
-
-    return response.data;
+    return await Api(dio: Dio()).get(url: "$baseUrl$productRoute/categories");
   }
 
   Future<List<Product>> getProductsByCategory({required categoryName}) async {
-    var response =
-        await dio.get("$baseUrl$productRoute/category/$categoryName");
+    List<dynamic> products = await Api(dio: Dio()).get(url: "$baseUrl$productRoute/category/$categoryName");
 
-    return response.data;
+    return products.map((product) => Product.fromJson(product)).toList();
+  }
+
+  Future<dynamic> addProduct({required Product product}) async {
+    var response = await Api(dio: Dio()).post(url: "https://fakestoreapi.com/products", body: product.toJson(), token: null);
+
+    return response;
   }
 }

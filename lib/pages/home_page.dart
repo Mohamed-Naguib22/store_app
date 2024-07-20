@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:store_app/models/product.dart';
+import 'package:store_app/models/rating.dart';
 import 'package:store_app/services/product_service.dart';
 import 'package:store_app/widgets/product_card.dart';
 
@@ -26,8 +27,15 @@ class HomePage extends StatelessWidget {
         title: const Text("New Trend"),
         centerTitle: true,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          var rating = Rating(rate: 32, count: 21);
+          var product = Product(id: 21, title: "test", price: 13, category: "category", image: "image", description: "description", rating: rating);
+          var response = await ProductService().addProduct(product: product);
+        },
+      ),
       body: FutureBuilder<List<Product>>(
-        future: ProductService(Dio()).getAllProducts(),
+        future: ProductService().getAllProducts(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());

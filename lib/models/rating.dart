@@ -1,5 +1,5 @@
 class Rating {
-  final double rate;
+  final dynamic rate;
   final int count;
 
   Rating({
@@ -12,5 +12,12 @@ class Rating {
       count: json['count'],
       rate: json['rate'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'rate': rate,
+      'count': count,
+    };
   }
 }
